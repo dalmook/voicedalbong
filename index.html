@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>급수별 받아쓰기 (한글·영어)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>급수별 받아쓰기 <span class="badge">KO / EN</span></h1>
+  </header>
+
+  <main class="container">
+    <!-- 설정 패널 -->
+    <section class="card settings">
+      <h2>설정</h2>
+      <div class="grid-2">
+        <label class="field">
+          <span>아이 이름</span>
+          <input id="childName" type="text" placeholder="예: 유겸" />
+        </label>
+        <div class="field info">
+          <span>언어별 용돈 기준</span>
+          <div id="allowanceInfo" class="mono">한글: 100원 / 영어: 200원 (정답 1개당)</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <label class="field">
+          <span>언어</span>
+          <select id="lang">
+            <option value="ko">한글</option>
+            <option value="en">영어</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>급수</span>
+          <select id="grade"></select>
+        </label>
+      </div>
+
+      <div class="grid-3">
+        <label class="field">
+          <span>문항 수</span>
+          <input id="numQuestions" type="number" min="3" max="30" step="1" value="10" />
+        </label>
+        <label class="field">
+          <span>읽기 속도 <small id="rateVal">1.0x</small></span>
+          <input id="rate" type="range" min="0.6" max="1.4" step="0.1" value="1.0" />
+        </label>
+        <label class="field">
+          <span>읽기 음성(선택)</span>
+          <select id="voice"></select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn" class="primary">세션 시작</button>
+        <button id="resetBtn" class="danger ghost">기록 초기화</button>
+      </div>
+      <p class="hint">※ 브라우저(크롬/엣지/사파리)의 음성(TTS)을 사용합니다. 기기마다 제공 음성이 다를 수 있어요.</p>
+    </section>
+
+    <!-- 문제/풀이 패널 -->
+    <section class="card play" id="playCard" hidden>
+      <div class="flex between">
+        <h2>문제 <span id="qIdx">1</span> / <span id="qTotal">10</span></h2>
+        <div class="score mono">점수: <span id="score">0</span> | 용돈: <span id="money">0원</span></div>
+      </div>
+
+      <div class="play-row">
+        <button id="speakBtn" class="round">🔊&nbsp;읽어주기</button>
+        <input id="answer" type="text" class="answer" placeholder="들린 내용을 그대로 입력" />
+      </div>
+
+      <div class="actions">
+        <button id="checkBtn" class="primary">정답 확인</button>
+        <button id="nextBtn" class="ghost" disabled>다음 문제</button>
+      </div>
+
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+    </section>
+
+    <!-- 결과 & 기록 패널 -->
+    <section class="card records">
+      <h2>기록</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="ko">한글</button>
+        <button class="tab" data-tab="en">영어</button>
+      </div>
+
+      <div id="tab-ko" class="tabpanel active">
+        <div class="summary" id="summary-ko"></div>
+        <div class="table-wrap">
+          <table id="table-ko">
+            <thead><tr><th>일시</th><th>급수</th><th>문제</th><th>입력</th><th>정답</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-en" class="tabpanel">
+        <div class="summary" id="summary-en"></div>
+        <div class="table-wrap">
+          <table id="table-en">
+            <thead><tr><th>일시</th><th>급수</th><th>문제</th><th>입력</th><th>정답</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2025 Dictation App — GitHub Pages</footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
